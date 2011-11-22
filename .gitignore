@@ -1,0 +1,17 @@
+# Non-source files.
+*.com
+*.class
+*.dll
+*.exe
+bin
+build
+
+# Other formats.
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip

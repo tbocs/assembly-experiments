@@ -25,22 +25,24 @@ LINKER_FLAG = -m elf_i386 -o
 LINK_LIB = $(wildcard lib/*.o)
 TARGET = addtwoints
 
+.SILENT:
+
 all: $(TARGET)
-	
+	echo "Build all targets."
 
 .SECONDEXPANSION:
 $(TARGET): $$(patsubst src/%.asm,build/%.o,$$(wildcard src/$$@/*.asm))
-	@if [ ! -d bin ]; then mkdir bin; fi;
-	@$(LINKER) $(LINKER_FLAG) bin/$@ $^ $(LINK_LIB)
-	@echo "Link target: $@."
+	if [ ! -d bin ]; then mkdir bin; fi;
+	$(LINKER) $(LINKER_FLAG) bin/$@ $^ $(LINK_LIB)
+	echo "Link target: $@."
 
 %.o:
-	@if [ ! -d $(@D) ]; then mkdir -p $(@D); fi;
-	@$(COMPILER) $(COMPILER_FLAG) -o $@ $(patsubst build/%.o,src/%.asm,$@)
-	@echo "Compile $(patsubst %.o,%.asm,$(@F)) in $(patsubst build/%,src/%,$(@D))."
+	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi;
+	$(COMPILER) $(COMPILER_FLAG) -o $@ $(patsubst build/%.o,src/%.asm,$@)
+	echo "Compile $(patsubst %.o,%.asm,$(@F)) in $(patsubst build/%,src/%,$(@D))."
 
 
 .PHONY: clean
 clean:
-	@rm -rf build bin
-	@echo "Delete auto-generated files."
+	rm -rf build bin
+	echo "Delete auto-generated files."

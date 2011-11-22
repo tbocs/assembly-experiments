@@ -18,14 +18,14 @@
 ; License in the root folder of the repository. If not, please
 ; check out <http://www.gnu.org/licenses/>.
 
-include "io.mac"
+%include "io.mac"
 
-segment data
+segment .data
   prompt_msg1 DB "Please input the first number: ", 0
   prompt_msg2 DB "Please input the second number: ", 0
   sum_msg     DB "The sum is: ", 0
 
-segment code
+segment .code
   global _start
 
 _start:

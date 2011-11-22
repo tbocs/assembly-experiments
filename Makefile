@@ -23,7 +23,7 @@ LINKER = ld
 COMPILER_FLAG = -f elf -i include/
 LINKER_FLAG = -m elf_i386 -o
 LINK_LIB = $(wildcard lib/*.o)
-TARGET = insertion-sort
+TARGET = addtwoints
 
 all: $(TARGET)
 	

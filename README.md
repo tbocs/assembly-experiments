@@ -8,6 +8,22 @@ Website: <https://github.com/tbocs/NASM-experiments>
 
 Author: Sam Zhai (sam at tbocs dot org)
 
+# Detailed description
+
+This package contains assembly language source files implementing,
+for example, generic algorithms. These code are written
+as a by-product of my learning and practicing this language.
+
+This package also comes with a "smart" Makefile. You can have
+multiple projects, each with a group of source files, in separated
+folders in src/; the Makefile will figure out the right files to
+use for making a specific target.
+
+To compile a specific program, use ```make <program-name>```, where
+*<program-name>* refers to a project name, i.e.,  one of the
+sub-folders names in src/. You can also run ```make``` to compile
+all the projects.
+
 ## Lisence
 
 This repository is for free software: you can redistribute the

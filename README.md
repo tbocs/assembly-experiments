@@ -39,7 +39,7 @@ categorized in the same way as in the `src`. What this means is that source
 files are compiled into intermediate object files during the first step of the
 making process. The process can be described as
 
-    src/sub_project/filename.[asm|c|cpp] -> build/sub_project/filename.o
+  src/sub\_project/filename.[asm|c|cpp] -> build/sub\_project/filename.o
 
 Apparently, you need to make sure that each source file has an unique name. 
 Currently, a sub-project can only have one output as target. Therefore, if you
@@ -76,7 +76,7 @@ such advanced topics, make sure to see GNU Make documentation.
 
 ### Example
 
-See `src/sample\_proj` for example.
+See ```src/sample_proj``` for example.
 
 ### Note on assembly, C and C++ compability
 

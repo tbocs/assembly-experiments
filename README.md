@@ -1,8 +1,9 @@
-## Basic info
 
 NASM-experiments - <https://github.com/tbocs/NASM-experiments>
 
 Author: Sam Zhai (sam at tbocs dot org)
+
+## At a glance
 
 This package contains source code written in Assembly, C, and C++. They
 implement a variety of stuff, such as some generic algorithms. It also has a
@@ -16,7 +17,7 @@ is created as a by-product of my learning and practicing the assembly language.
 
 ### General instructions
 
-To create a sub-project, simply create a new folder in `src`, which can be
+To initiate a sub-project, simply create a new folder in `src`, which can be
 found at the root of this package. Then, put any Assembly, C and C++ source
 (and header) files inside that folder as you wish. You can also create folders
 inside the sub-project folder; files inside will be recognized. However, a
@@ -39,7 +40,7 @@ categorized in the same way as in the `src`. What this means is that source
 files are compiled into intermediate object files during the first step of the
 making process. The process can be described as
 
-  src/sub\_project/filename.[asm|c|cpp] -> build/sub\_project/filename.o
+    src/sub_project/filename.[asm|c|cpp] -> build/sub_project/filename.o
 
 Apparently, you need to make sure that each source file has an unique name. 
 Currently, a sub-project can only have one output as target. Therefore, if you
@@ -52,10 +53,10 @@ in `include` (for compilation) or `lib` (for linking).
 
 ### Customization
 
-To costomize the linking process (e.g. add/reset compiler flag, which is a
+To costomize the making process (e.g. add/reset compiler flag, which is a
 Makefile variable, during a certain compilation process), simply create a
-`Makefile` right under the sub-project folder. The content format should
-adhere to the following rule:
+`Makefile` right under the sub-project folder. The format of the content
+should adhere to the following rules:
 
     [sub-project name] : [variable name] = [variable value]
 
@@ -76,17 +77,17 @@ such advanced topics, make sure to see GNU Make documentation.
 
 ### Example
 
-See ```src/sample_proj``` for example.
+See the ```src/sample_proj``` sub-project.
 
 ### Note on assembly, C and C++ compability
 
 Source files of different languages are compiled using different compilers. By
 default, ASM is compiled by nasm, C by gcc, and C++ by g++.
 
-For linking, we choose g++ instead of gcc or ld because the other two requires
+For linking, we choose g++ instead of gcc or ld because the other two require
 additional settings to handle C++ linking. However, if you encounter a linking
-problem between C++ and C, consider using ```extern "C"``` to let g++ know
-something is written in C.
+problem between C++ and C, consider using ```extern "C"``` in your C++ source
+file to let g++ know that something should be looked up in C object files.
 
 ## Lisence
 

@@ -18,31 +18,49 @@
 # License in the root folder of the repository. If not, please
 # check out <http://www.gnu.org/licenses/>.
 
-COMPILER = nasm
-LINKER = ld
-COMPILER_FLAG = -f elf -i include/
-LINKER_FLAG = -m elf_i386 -o
-LINK_LIB = $(wildcard lib/*.o)
-TARGET = addtwoints
+# Compilers
+CC = gcc
+CXX = g++
+AS = nasm
+LD = ld
+
+# Libs to including folders and library paths
+CLIBS =
+CXXLIBS = 
+ASLIBS = include
+LDLIBS =
+
+# Additional flags and other variables
+CFLAGS =
+CXXFLAGS =
+ASFLAGS = -f elf
+LDFLAGS = -m elf_i386
+
+# Targets (auto-detected)
+TARGET = $(shell ls src)
+
+LOL = "============this is root"
 
 .SILENT:
+.SECONDEXPANSION:
 
 all: $(TARGET)
-	echo "Build all targets."
+	echo "All targets are built successfully."
 
-.SECONDEXPANSION:
-$(TARGET): $$(patsubst src/%.asm,build/%.o,$$(wildcard src/$$@/*.asm))
-	if [ ! -d bin ]; then mkdir bin; fi;
-	$(LINKER) $(LINKER_FLAG) bin/$@ $^ $(LINK_LIB)
+include $(wildcard src/*/Makefile)
+
+$(TARGET): $$(wildcard src/$$@/*)
 	echo "Link target: $@."
+	if [ ! -d bin ]; then mkdir bin; fi;
+	$(LD) $(LDFLAGS) -O bin/$@ $(addprefix build/,$^) $(LDLIBS)
 
 %.o:
-	if [ ! -d $(@D) ]; then mkdir -p $(@D); fi;
-	$(COMPILER) $(COMPILER_FLAG) -o $@ $(patsubst build/%.o,src/%.asm,$@)
-	echo "Compile $(patsubst %.o,%.asm,$(@F)) in $(patsubst build/%,src/%,$(@D))."
-
+	echo $(LOL)
+	echo "Compile $(patsubst %.o,%.asm,$(@F)) in $(@D)."
+	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
+	$(AS) $(ASFLAGS) -I $(ASLIBS) -o build/$@ $(patsubst %.o,src/%.asm,$@)
 
 .PHONY: clean
 clean:
 	rm -rf build bin
-	echo "Delete auto-generated files."
+	echo "Auto-generated files are deleted."

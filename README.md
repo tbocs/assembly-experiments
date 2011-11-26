@@ -8,9 +8,9 @@ Author: Sam Zhai (sam at tbocs dot org)
 This package contains source code written in Assembly, C, and C++. They
 implement a variety of stuff, such as some generic algorithms. It also has a
 "smart" Makefile, which enables you to create multiple sub-projects inside the
-`src` folder of this package, each with a group of source files. The "smart"
-Makefile makes sure the making process is done right for each sub-project. It
-also supports coustomized making in a simple and systematic way. This package
+`src` folder of this package, each with a group of source files, and ensures
+that the making process is done right and automatically for each sub-project.
+It also supports coustomization in a simple and systematic way. This package
 is created as a by-product of my learning and practicing the assembly language.
 
 ## Documentation

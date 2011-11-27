@@ -88,9 +88,11 @@ Source files of different languages are compiled using different compilers. By
 default, ASM is compiled by nasm, C by gcc, and C++ by g++.
 
 For linking, we choose g++ instead of gcc or ld because the other two require
-additional settings to handle C++ linking. Y, if you encounter a linking
-problem between C++ and C, consider using ```extern "C"``` in your C++ source
-file.
+additional settings to handle C++ linking. This enables you to use either C or
+C++ to work with and create the driver of assembly code. However, mixing C and
+C++, though possible, is not a good practice. If you encounter a linking
+problem between C++ and C, use ```extern "C"``` in C++ source file. Fore more
+details, check out <http://developers.sun.com/solaris/articles/mixing.html>
 
 ## Lisence
 

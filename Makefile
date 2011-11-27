@@ -31,10 +31,10 @@ ASLIBS = -i include/
 LDLIBS = $(wildcard lib/*.o)
 
 # Additional flags and other variables
-CFLAGS = -m32 -c
-CXXFLAGS = -m32 -c
+CFLAGS = -c
+CXXFLAGS = -c
 ASFLAGS = -f elf
-LDFLAGS = -m32
+LDFLAGS = 
 
 # Targets / sub-projects (auto-detected)
 TARGET = $(shell ls src)

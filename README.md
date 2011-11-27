@@ -47,7 +47,7 @@ Apparently, you need to make sure that each source file has an unique name.
 The next step is to link all the intermediate objects and output an executable.
 One sub-project can have one and only one executable output. Therefore, you
 should have one and only one ```main()``` function in one of the C/C++ source
-file. Unfortunately you cannot declare gloabl```_start``` lable in assembly
+file. Unfortunately you cannot declare global ```_start``` lable in assembly
 source file as the entry point of the executabe, as it will conflict with g++.
 
 If you want to create two or more targets whose source files share something

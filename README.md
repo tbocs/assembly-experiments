@@ -107,5 +107,5 @@ PARTICULAR PURPOSE. Some files created by third-parties are also included as
 external code libraries auxiliary resources; other licenses may apply.
 
 For more details, please see the GNU General Public License. You should have
-received a copy of the GNU General Public License at the root of this package.
+received a copy of the GNU General Public License at the root of the package.
 If not, please check out <http://www.gnu.org/licenses/>.

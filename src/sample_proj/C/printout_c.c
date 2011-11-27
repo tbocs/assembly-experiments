@@ -21,6 +21,6 @@
 
 #include <stdio.h>
 
-void printout () {
+void printout_c () {
   printf("Hello world by C!\n");
 }

@@ -18,18 +18,15 @@
 ; received a copy of the GNU General Public License at the root of this package.
 ; If not, please check out <http://www.gnu.org/licenses/>. 
 
-include "io.mac"
+%include "io.mac"
 
 segment data
   prompt_str DB "Hello World by Assembly!", 0
 
 segment code
-  global _start
-  extern printout_c, printout_cpp
+  global printout_asm
 
-_start:
+printout_asm:
   PutStr prompt_str
   nwln
-  call printout_c
-  call printout_cpp
-  .EXIT
+  ret

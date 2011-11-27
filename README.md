@@ -43,13 +43,16 @@ making process. The process can be described as
     src/sub_project/filename.[asm|c|cpp] -> build/sub_project/filename.o
 
 Apparently, you need to make sure that each source file has an unique name. 
-Currently, a sub-project can only have one output as target. Therefore, if you
-want to create an executable from a sub-project, you either have one
-```main()``` function in one C/C++ source file or one gloabl```_start``` lable
-in one assembly source file. If you want to create two or more targets
-(executables or libraries) which share some object or source files, the best
-way to go is to create a sub-project for each target, and put common resource
-in `include` (for compilation) or `lib` (for linking).
+
+The next step is to link all the intermediate objects and output an executable.
+One sub-project can have one and only one executable output. Therefore, you
+should have one and only one ```main()``` function in one of the C/C++ source
+file. Unfortunately you cannot declare gloabl```_start``` lable in assembly
+source file as the entry point of the executabe, as it will conflict with g++.
+
+If you want to create two or more targets whose source files share something
+in common, the best way to go is to create a sub-project for each target, and
+put common resource in `include` (for compilation) or `lib` (for linking).
 
 ### Customization
 
@@ -85,9 +88,9 @@ Source files of different languages are compiled using different compilers. By
 default, ASM is compiled by nasm, C by gcc, and C++ by g++.
 
 For linking, we choose g++ instead of gcc or ld because the other two require
-additional settings to handle C++ linking. However, if you encounter a linking
+additional settings to handle C++ linking. Y, if you encounter a linking
 problem between C++ and C, consider using ```extern "C"``` in your C++ source
-file to let g++ know that something should be looked up in C object files.
+file.
 
 ## Lisence
 

@@ -23,6 +23,7 @@
 
 using namespace std;
 
-void printout_cpp () {
+extern "C" void printout_cpp () {
   cout << "Hello World by C++\n";
 }
+

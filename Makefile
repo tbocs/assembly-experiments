@@ -22,19 +22,19 @@
 CC = gcc
 CXX = g++
 AS = nasm
-LD = g++ 
+LD = g++
 
 # Compile / link libraries to include
 CLIBS =
-CXXLIBS = 
-ASLIBS = include
+CXXLIBS =
+ASLIBS = -i include/
 LDLIBS = $(wildcard lib/*.o)
 
 # Additional flags and other variables
-CFLAGS =
-CXXFLAGS =
+CFLAGS = -m32 -c
+CXXFLAGS = -m32 -c
 ASFLAGS = -f elf
-LDFLAGS = -m elf_i386
+LDFLAGS = -m32
 
 # Targets / sub-projects (auto-detected)
 TARGET = $(shell ls src)
@@ -47,29 +47,26 @@ all: $(TARGET)
 
 include $(wildcard src/*/Makefile)
 
-$(TARGET): TARGET = $@
-$(TARGET): $$(patsubst src/%,%, \
-           $$(shell find src/$$(TARGET) -regex '.*\.\(asm\|c\|cpp\)'))
-	echo "Link target: $(TARGET)."
-	# if [ ! -d bin ]; then mkdir bin; fi;
-	# $(LD) $(LDFLAGS) -O bin/$@ $(addprefix build/,$^) $(LDLIBS)
+$(TARGET): $$(patsubst src/%,%, $$(shell find src/$$@ -regex '.*\.\(asm\|c\|cpp\)'))
+	echo "Link target: $@."
+	if [ ! -d bin ]; then mkdir bin; fi;
+	$(LD) $(LDFLAGS) -o bin/$@ \
+		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) 
 
 %.asm:
-	echo "Compile assembly file '$(@F)' in sub-project '$(@D)'."
+	echo "Compile assembly file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
-	#$(AS) $(ASFLAGS) -I $(ASLIBS) -o build/$@ $(patsubst %.o,src/%.asm,$@)
+	$(AS) $(ASFLAGS) $(ASLIBS) -o build/$(patsubst %.asm,%.o,$@) src/$@
 
 %.c:
-	echo "Compile C file '$(@F)' in sub-project '$(@D)'."
+	echo "Compile C file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
-	#$(CC) $(CFLAGS) -I $(CLIBS) -o build/$@ $(patsubst %.o,src/%.asm,$@)
+	$(CC) $(CFLAGS) $(CLIBS) -o build/$(patsubst %.c,%.o,$@) src/$@
 
-%.cpp: CFLAGS = "hello world"
-%.cpp: CFLAGS += "huh?"
 %.cpp:
-	echo "Compile C++ file '$(@F)' in sub-project '$(@D)'."
+	echo "Compile C++ file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
-	#$(CXX) $(CXXFLAGS) -I $(CXXLIBS) -o build/$@ $(patsubst %.o,src/%.asm,$@)
+	$(CXX) $(CXXFLAGS) $(CXXLIBS) -o build/$(patsubst %.cpp,%.o,$@) src/$@
 
 .PHONY: clean
 clean:

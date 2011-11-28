@@ -94,7 +94,7 @@ C++, though possible, is not a good practice. If you encounter a linking
 problem between C++ and C, use ```extern "C"``` in C++ source file. Fore more
 details, check out <http://developers.sun.com/solaris/articles/mixing.html>
 
-## Lisence
+## Licence
 
 This package is free software: you can redistribute the including programs and
 source files created by the author and/or modify them under the terms of the

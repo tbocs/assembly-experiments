@@ -98,7 +98,7 @@ in choosing only either C or C++ to work with assembly code. If you decide to us
 both and encounter a linking problem, use C++ ```extern "C"``` keyword. Fore more
 details, check out <http://developers.sun.com/solaris/articles/mixing.html>
 
-## Licence
+## License
 
 This package is free software: you can redistribute the including programs and
 source files created by the author and/or modify them under the terms of the

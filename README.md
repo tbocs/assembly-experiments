@@ -49,7 +49,10 @@ One sub-project can have one and only one executable output. Therefore, you
 should have one and only one of the following:
 
   + a ```main()``` function in one of the C/C++ source;
-  + a global ```main``` lable in assembly source.
+  + a global ```main``` lable in assembly source when linked with C/C++ source;
+  + a ```_start``` lable in assembly source when no C/C++ source is present.
+
+Note that g++ is used for linking in first two cases, ld otherwise.
 
 If you want to create two or more targets whose source files share something
 in common, the best way to go is to create a sub-project for each target, and
@@ -88,11 +91,11 @@ See the ```src/sample_proj``` sub-project.
 Source files of different languages are compiled using different compilers. By
 default, ASM is compiled by nasm, C by gcc, and C++ by g++.
 
-For linking, we choose g++ instead of gcc or ld because the other two require
-additional settings to handle C++ linking. This enables you to use either C or
-C++ to work with and create the driver of assembly code. However, mixing C and
-C++, though possible, is not a good practice. If you encounter a linking
-problem between C++ and C, use ```extern "C"``` in C++ source file. Fore more
+For linking, if C or C++ is present, we choose to use g++ instead of ld because
+the former handles C and C++ linking natively. However, mixing C and C++ code,
+though possible, is not a good practice. Generally, you should make up your mind
+in choosing only either C or C++ to work with assembly code. If you decide to use
+both and encounter a linking problem, use C++ ```extern "C"``` keyword. Fore more
 details, check out <http://developers.sun.com/solaris/articles/mixing.html>
 
 ## Licence

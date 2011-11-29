@@ -22,7 +22,7 @@
 CC = gcc
 CXX = g++
 AS = nasm
-LD = g++
+LD = ld
 
 # Compile / link libraries to include
 CLIBS =
@@ -50,9 +50,13 @@ include $(wildcard src/*/Makefile)
 $(TARGET): $$(patsubst src/%,%, $$(shell find src/$$@ -regex '.*\.\(asm\|c\|cpp\)'))
 	echo "Link target: $@."
 	if [ ! -d bin ]; then mkdir bin; fi;
-	$(LD) $(LDFLAGS) -o bin/$@ \
-		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) 
-
+	if ( $(if $(filter-out .asm,$(suffix $^)),true,false) ); then \
+		$(CXX) $(LDFLAGS) -o bin/$@ \
+		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) ; \
+	else \
+		$(LD) $(LDFLAGS) -o bin/$@ \
+		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) ; \
+	fi;
 %.asm:
 	echo "Compile assembly file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;

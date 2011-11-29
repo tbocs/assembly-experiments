@@ -33,7 +33,7 @@ LDLIBS = $(wildcard lib/*.o)
 # Additional flags and other variables
 CFLAGS = -c
 CXXFLAGS = -c
-ASFLAGS = -f elf
+ASFLAGS = 
 LDFLAGS = 
 
 # Targets / sub-projects (auto-detected)

@@ -38,6 +38,8 @@ LDFLAGS =
 
 # Targets / sub-projects (auto-detected)
 TARGET = $(shell ls src)
+PRE_COMMAND =
+POST_COMMAND =
 
 .SILENT:
 .SECONDEXPANSION:
@@ -50,6 +52,7 @@ include $(wildcard src/*/Makefile)
 $(TARGET): $$(patsubst src/%,%, $$(shell find src/$$@ -regex '.*\.\(asm\|c\|cpp\)'))
 	echo "Link target: $@."
 	if [ ! -d bin ]; then mkdir bin; fi;
+	$(PRE_COMMAND)
 	if ( $(if $(filter-out .asm,$(suffix $^)),true,false) ); then \
 		$(CXX) $(LDFLAGS) -o bin/$@ \
 		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) ; \
@@ -57,21 +60,28 @@ $(TARGET): $$(patsubst src/%,%, $$(shell find src/$$@ -regex '.*\.\(asm\|c\|cpp\
 		$(LD) $(LDFLAGS) -o bin/$@ \
 		$(addsuffix .o,$(addprefix build/,$(basename $^))) $(LDLIBS) ; \
 	fi;
+	$(POST_COMMAND)
+
 %.asm:
 	echo "Compile assembly file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
+	$(PRE_COMMAND)
 	$(AS) $(ASFLAGS) $(ASLIBS) -o build/$(patsubst %.asm,%.o,$@) src/$@
+	$(POST_COMMAND)
 
 %.c:
 	echo "Compile C file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
+	$(PRE_COMMAND)
 	$(CC) $(CFLAGS) $(CLIBS) -o build/$(patsubst %.c,%.o,$@) src/$@
+	$(POST_COMMAND)
 
 %.cpp:
 	echo "Compile C++ file '$(@F)'"
 	if [ ! -d build/$(@D) ]; then mkdir -p build/$(@D); fi;
+	$(PRE_COMMAND)
 	$(CXX) $(CXXFLAGS) $(CXXLIBS) -o build/$(patsubst %.cpp,%.o,$@) src/$@
-
+	$(POST_COMMAND)
 .PHONY: clean
 clean:
 	rm -rf build bin

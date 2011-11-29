@@ -1,5 +1,5 @@
 
-NASM-experiments - <https://github.com/tbocs/NASM-experiments>
+assembly-experiments - <https://github.com/tbocs/assembly-experiments>
 
 Author: Sam Zhai (sam at tbocs dot org)
 
@@ -76,6 +76,12 @@ file. Only one variable can be defined in each line. The target part before the
 colon is required for each line. "=" can be substituded by "+=", "?=" and ":="
 at your choice. A variable is only effective inside the target range, and is
 automatically restored to the original value once the local target is done.
+
+Here are some of the variables you can customize:
+
+  + Flags: ASFLAGS, CFLAGS, CXXFLAGS, LDFLAGS
+  + Libs: ASLIBS, CLIBS, CXXLIBS, LDLIBS
+  + Additional commands to run before/after a target: PRE_COMMAND, POST_COMMAND
 
 If you are an advanced user of Makefile, you should know to use "$$" instead of
 "$" for automatic variables and functions as a part of secondary expansion. You
